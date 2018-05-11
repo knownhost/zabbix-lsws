@@ -42,12 +42,14 @@ my $uptime      = $1 if ($report[get_line("UPTIME:")] =~ /UPTIME:\ (\d\d:\d\d:\d
 my $bps         = $report[get_line("BPS_IN:")];
 my $conn        = $report[get_line("MAXCONN:")];
 my $req_rate    = $report[get_line("REQ_RATE \\[\\]:")];
-my $php         = $report[get_line("EXTAPP \\[LSAPI\\] \\[\\] \\[lsphp5\\]:")];
+#my $php         = $report[get_line("EXTAPP \\[LSAPI\\] \\[\\] \\[lsphp5\\]:")];
 
 my $bps_in      = $1 if ($bps =~ /BPS_IN:\ (\d+)/g);
 my $bps_out     = $1 if ($bps =~ /BPS_OUT:\ (\d+)/g);
 my $ssl_bps_in  = $1 if ($bps =~ /SSL_BPS_IN:\ (\d+)/g);
 my $ssl_bps_out = $1 if ($bps =~ /SSL_BPS_OUT:\ (\d+)/g);
+my $total_bps_in = $bps_in + $ssl_bps_in;
+my $total_bps_out = $bps_out + $ssl_bps_out;
 
 my $maxconn     = $1 if ($conn =~ /MAXCONN:\ (\d+)/g);
 my $maxssl_conn = $1 if ($conn =~ /MAXSSL_CONN:\ (\d+)/g);
@@ -82,6 +84,8 @@ print TMPFILE "$host lsws.bps_in $bps_in\n";
 print TMPFILE "$host lsws.bps_out $bps_out\n";
 print TMPFILE "$host lsws.ssl_bps_in $ssl_bps_in\n";
 print TMPFILE "$host lsws.ssl_bps_out $ssl_bps_out\n";
+print TMPFILE "$host lsws.total_bps_in $total_bps_in\n";
+print TMPFILE "$host lsws.total_bps_out $total_bps_out\n";
 print TMPFILE "$host lsws.maxconn $maxconn\n";
 print TMPFILE "$host lsws.maxssl_conn $maxssl_conn\n";
 print TMPFILE "$host lsws.plainconn $plainconn\n";

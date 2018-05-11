@@ -114,7 +114,7 @@ close(TMPFILE);
 my $vv = ($verbose) ? " -vv" : "";
 system("$sender --zabbix-server '$server' --port '$port' -i '$tmpFile'$vv");
 
-#unlink($tmpFile);
+unlink($tmpFile);
 
 exit 0;
 

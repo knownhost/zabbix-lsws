@@ -57,6 +57,7 @@ my $plainconn   = $1 if ($conn =~ /PLAINCONN:\ (\d+)/g);
 my $availconn   = $1 if ($conn =~ /AVAILCONN:\ (\d+)/g);
 my $idleconn    = $1 if ($conn =~ /IDLECONN:\ (\d+)/g);
 my $sslconn     = $1 if ($conn =~ /SSLCONN:\ (\d+)/g);
+my $totalconn   = $plainconn + $sslconn;
 my $availssl    = $1 if ($conn =~ /AVAILSSL:\ (\d+)/g);
 
 my $req_processing      = $1 if ($req_rate =~ /REQ_PROCESSING:\ (\d+)/g);
@@ -92,6 +93,7 @@ print TMPFILE "$host lsws.plainconn $plainconn\n";
 print TMPFILE "$host lsws.availconn $availconn\n";
 print TMPFILE "$host lsws.idleconn $idleconn\n";
 print TMPFILE "$host lsws.sslconn $sslconn\n";
+print TMPFILE "$host lsws.totalconn $totalconn\n";
 print TMPFILE "$host lsws.availssl $availssl\n";
 print TMPFILE "$host lsws.req_processing $req_processing\n";
 print TMPFILE "$host lsws.req_per_sec $req_per_sec\n";
